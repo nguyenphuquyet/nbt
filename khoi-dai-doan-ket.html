@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Khối Đại Đoàn Kết Dân Tộc</title>
+
+  <!-- SEO cơ bản -->
+  <meta name="description" content="Sơ đồ tư duy Khối Đại Đoàn Kết Dân Tộc - tóm tắt lịch sử Việt Nam về vai trò, ý nghĩa và các giai đoạn phát triển." />
+  <meta name="keywords" content="đại đoàn kết dân tộc, sơ đồ tư duy lịch sử, Việt Nam, Diên Hồng, kháng chiến, Văn Lang Âu Lạc" />
+  <meta name="author" content="Nguyễn Phú Quyết" />
+
+  <!-- Robots -->
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph (Facebook, Zalo, Discord...) -->
+  <meta property="og:title" content="Khối Đại Đoàn Kết Dân Tộc" />
+  <meta property="og:description" content="Sơ đồ tư duy trực quan về khối đại đoàn kết dân tộc trong lịch sử Việt Nam." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nguyenphuquyet.github.io/nbt/khoi-dai-doan-ket.html" />
+  <meta property="og:image" content="https://sf-static.upanhlaylink.com/img/image_2026042364361fd0c700b622ae8d4e007c9aa3b9.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Khối Đại Đoàn Kết Dân Tộc" />
+  <meta name="twitter:description" content="Sơ đồ tư duy lịch sử Việt Nam dễ hiểu và trực quan." />
+  <meta name="twitter:image" content="https://sf-static.upanhlaylink.com/img/image_2026042364361fd0c700b622ae8d4e007c9aa3b9.jpg" />
+
+  <!-- Theme color (mobile) -->
+  <meta name="theme-color" content="#6c5ce7" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://sf-static.upanhlaylink.com/img/image_2026042364361fd0c700b622ae8d4e007c9aa3b9.jpg" type="image/x-icon" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Be+Vietnam+Pro:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --accent: #6c5ce7;
+      --accent-light: #a29bfe;
+      --accent-dark: #4834d4;
+      --bg: #f8f7ff;
+      --node-bg: #fff;
+      --text: #1a1a2e;
+      --line: #b2b0e8;
+      --leaf-bg: #eeeaff;
+      --leaf-text: #3d3580;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      font-family: 'Be Vietnam Pro', sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: auto;
+    }
+
+    /* ── SVG connector lines ── */
+    .mindmap-svg {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .mindmap-svg line { stroke: var(--line); stroke-width: 1.8; }
+
+    /* ── Layout shell ── */
+    .canvas {
+      position: relative;
+      width: 1440px;
+      min-height: 900px;
+      margin: 0 auto;
+      padding: 40px 0;
+    }
+
+    /* ── Root node ── */
+    .root-node {
+      position: absolute;
+      left: 40px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--accent);
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 18px 22px;
+      border-radius: 14px;
+      width: 160px;
+      text-align: center;
+      line-height: 1.4;
+      box-shadow: 0 8px 32px rgba(108,92,231,.35);
+      z-index: 10;
+    }
+
+    /* ── Section headings (black boxes) ── */
+    .section-node {
+      position: absolute;
+      background: #1a1a2e;
+      color: #fff;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      white-space: nowrap;
+      z-index: 10;
+      box-shadow: 0 4px 16px rgba(26,26,46,.2);
+    }
+
+    /* ── Mid-level label ── */
+    .mid-node {
+      position: absolute;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--leaf-text);
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    /* ── Leaf nodes ── */
+    .leaf-node {
+      position: absolute;
+      background: var(--leaf-bg);
+      color: var(--leaf-text);
+      font-size: 12px;
+      font-weight: 400;
+      padding: 5px 13px;
+      border-radius: 20px;
+      white-space: nowrap;
+      z-index: 10;
+      box-shadow: 0 2px 8px rgba(108,92,231,.10);
+    }
+
+    /* ── Dot connector ── */
+    .dot {
+      position: absolute;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      z-index: 11;
+      transform: translate(-50%, -50%);
+    }
+
+    /* hover highlight */
+    .leaf-node:hover { background: var(--accent-light); color: #fff; cursor: default; transition: .2s; }
+    .section-node:hover { background: var(--accent-dark); cursor: default; transition: .2s; }
+
+    /* Page title */
+    .page-title {
+      text-align: center;
+      padding: 30px 0 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      color: var(--accent-dark);
+      letter-spacing: .03em;
+    }
+    .page-sub {
+      text-align: center;
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 10px;
+      letter-spacing: .05em;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { height: 6px; }
+    ::-webkit-scrollbar-thumb { background: var(--accent-light); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<h1 class="page-title">Khối Đại Đoàn Kết Dân Tộc</h1>
+<p class="page-sub">Sơ đồ tư duy · Lịch sử Việt Nam</p>
+
+<div style="overflow-x:auto; overflow-y:auto;">
+<div class="canvas" id="canvas">
+
+  <!-- SVG lines rendered by JS -->
+  <svg class="mindmap-svg" id="lines"></svg>
+
+  <!-- ════════════════════════════════
+       ROOT
+  ════════════════════════════════ -->
+  <div class="root-node" id="root" style="top:50%; transform:translateY(-50%)">
+    KHỐI ĐẠI<br>ĐOÀN KẾT<br>DÂN TỘC
+  </div>
+
+  <!-- ════════════════════════════════
+       BRANCH 1 – DỰNG NƯỚC
+  ════════════════════════════════ -->
+  <div class="section-node" id="s1" style="left:290px; top:115px">1. Trong thời kì dựng nước</div>
+
+  <div class="mid-node" id="s1_vai" style="left:530px; top:80px">Vai trò</div>
+  <div class="leaf-node" id="s1_v1" style="left:640px; top:60px">Trị thủy</div>
+  <div class="leaf-node" id="s1_v2" style="left:640px; top:95px">Phát triển kinh tế</div>
+
+  <div class="mid-node" id="s1_kq" style="left:530px; top:148px">Kết quả</div>
+  <div class="leaf-node" id="s1_kq1" style="left:640px; top:142px">Hình thành nhà nước đầu tiên</div>
+  <div class="leaf-node" id="s1_kq2" style="left:910px; top:142px">Văn Lang – Âu Lạc</div>
+
+  <!-- ════════════════════════════════
+       BRANCH 2 – CHỐNG NGOẠI XÂM
+  ════════════════════════════════ -->
+  <div class="section-node" id="s2" style="left:270px; top:380px">2. Trong đấu tranh chống ngoại xâm</div>
+
+  <!-- vai trò -->
+  <div class="mid-node" id="s2_vai" style="left:560px; top:295px">Vai trò</div>
+  <div class="leaf-node" id="s2_v1" style="left:660px; top:272px">Bảo vệ và giành lại độc lập dân tộc</div>
+  <div class="leaf-node" id="s2_v2" style="left:660px; top:307px">Tạo sức mạnh quyết định mọi thắng lợi</div>
+
+  <!-- minh chứng -->
+  <div class="mid-node" id="s2_mc" style="left:555px; top:385px">Minh chứng lịch sử</div>
+  <div class="mid-node" id="s2_kc" style="left:755px; top:365px">Các cuộc kháng chiến đầu tiên</div>
+  <div class="leaf-node" id="s2_mc1" style="left:970px; top:325px">Nhà nước Văn Lang – Âu Lạc</div>
+  <div class="leaf-node" id="s2_mc2" style="left:970px; top:360px">Cách mạng tháng Tám → thành công</div>
+  <div class="leaf-node" id="s2_mc3" style="left:970px; top:395px">Kháng chiến chống Pháp (1945–1954)</div>
+  <div class="leaf-node" id="s2_mc4" style="left:970px; top:430px">Kháng chiến chống Mỹ (1954–1975)</div>
+
+  <!-- ý nghĩa -->
+  <div class="mid-node" id="s2_yn" style="left:560px; top:490px">Ý nghĩa</div>
+  <div class="leaf-node" id="s2_yn1" style="left:660px; top:468px">Chứng minh sức mạnh đồng thuận toàn dân tộc</div>
+  <div class="mid-node" id="s2_dk" style="left:660px; top:510px">Điều kiện phát huy</div>
+  <div class="leaf-node" id="s2_dk1" style="left:820px; top:493px">Đường lối đúng đắn</div>
+  <div class="leaf-node" id="s2_dk2" style="left:820px; top:528px">Tinh thần tự lực, tự cường</div>
+
+  <!-- ════════════════════════════════
+       BRANCH 3 – DIÊN HỒNG
+  ════════════════════════════════ -->
+  <div class="section-node" id="s3" style="left:280px; top:660px">3. Ví dụ tiêu biểu: Diên Hồng (1285)</div>
+
+  <!-- sự kiện -->
+  <div class="mid-node" id="s3_sk" style="left:560px; top:598px">Sự kiện</div>
+  <div class="mid-node" id="s3_dh" style="left:650px; top:598px">Hội nghị Diên Hồng</div>
+  <div class="leaf-node" id="s3_dh1" style="left:840px; top:572px">Tổ chức tại Kinh thành Thăng Long</div>
+  <div class="leaf-node" id="s3_dh2" style="left:840px; top:604px">Người triệu tập: Trần Thánh Tông</div>
+  <div class="leaf-node" id="s3_dh3" style="left:840px; top:636px">Thành phần: Các bô lão trên cả nước</div>
+
+  <!-- nội dung -->
+  <div class="mid-node" id="s3_nd" style="left:560px; top:672px">Nội dung</div>
+  <div class="leaf-node" id="s3_nd1" style="left:660px; top:665px">Hỏi ý kiến về hòa hay đánh khi quân Mông – Nguyên xâm lược</div>
+
+  <!-- kết quả -->
+  <div class="mid-node" id="s3_kq" style="left:560px; top:706px">Kết quả</div>
+  <div class="leaf-node" id="s3_kq1" style="left:660px; top:699px">Đồng thanh: "Đánh!"</div>
+
+  <!-- ý nghĩa -->
+  <div class="mid-node" id="s3_yn" style="left:560px; top:745px">Ý nghĩa</div>
+  <div class="leaf-node" id="s3_yn1" style="left:660px; top:728px">Thể hiện ý chí toàn dân</div>
+  <div class="leaf-node" id="s3_yn2" style="left:660px; top:760px">Sức mạnh đoàn kết</div>
+
+  <!-- liên hệ -->
+  <div class="mid-node" id="s3_lh" style="left:560px; top:796px">Liên hệ hiện nay</div>
+  <div class="leaf-node" id="s3_lh1" style="left:700px; top:789px">"Diên Hồng": Tên phòng họp chính</div>
+
+</div><!-- /canvas -->
+</div>
+
+<script>
+// ─── Helper: get center of an element relative to canvas ───
+const canvas = document.getElementById('canvas');
+function center(id) {
+  const el = document.getElementById(id);
+  const cr = canvas.getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  return {
+    x: er.left - cr.left + er.width / 2,
+    y: er.top  - cr.top  + er.height / 2,
+    l: er.left - cr.left,
+    r: er.left - cr.left + er.width,
+    t: er.top  - cr.top,
+    b: er.top  - cr.top  + er.height,
+    midY: er.top - cr.top + er.height / 2,
+  };
+}
+
+// ─── Draw lines after layout ───
+function drawLines() {
+  const svg = document.getElementById('lines');
+  svg.innerHTML = '';
+
+  // helper to add line
+  const line = (x1,y1,x2,y2) => {
+    const l = document.createElementNS('http://www.w3.org/2000/svg','line');
+    l.setAttribute('x1',x1); l.setAttribute('y1',y1);
+    l.setAttribute('x2',x2); l.setAttribute('y2',y2);
+    svg.appendChild(l);
+  };
+  const dot = (x,y) => {
+    const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+    c.setAttribute('cx',x); c.setAttribute('cy',y); c.setAttribute('r',4);
+    c.setAttribute('fill','#b2b0e8');
+    svg.appendChild(c);
+  };
+
+  // root → sections
+  ['s1','s2','s3'].forEach(id => {
+    const r = center('root'); const s = center(id);
+    line(r.r, r.midY, s.l, s.midY);
+    dot(s.l, s.midY);
+  });
+
+  // Section 1 connections
+  const s1 = center('s1');
+  // s1 → vai trò
+  const v = center('s1_vai');
+  line(s1.r, s1.midY, v.l, v.midY);
+  // vai trò → leaves
+  [['s1_v1'],['s1_v2']].forEach(([id]) => {
+    const a = center('s1_vai'); const b = center(id);
+    line(a.r+5, a.midY, b.l, b.midY);
+  });
+  // s1 → kết quả
+  const kq1 = center('s1_kq');
+  line(s1.r, s1.midY, kq1.l, kq1.midY);
+  // kq → hình thành
+  const ht = center('s1_kq1');
+  line(kq1.r+5, kq1.midY, ht.l, ht.midY);
+  // hình thành → văn lang
+  const vl = center('s1_kq2');
+  line(ht.r, ht.midY, vl.l, vl.midY);
+
+  // Section 2 connections
+  const s2 = center('s2');
+  ['s2_vai','s2_mc','s2_yn'].forEach(id => {
+    const n = center(id);
+    line(s2.r, s2.midY, n.l, n.midY);
+  });
+  // vai trò leaves
+  ['s2_v1','s2_v2'].forEach(id => {
+    const a = center('s2_vai'); const b = center(id);
+    line(a.r+5, a.midY, b.l, b.midY);
+  });
+  // minh chứng → cuộc kháng chiến
+  const mc = center('s2_mc'); const kc = center('s2_kc');
+  line(mc.r+5, mc.midY, kc.l, kc.midY);
+  // kc → leaves
+  ['s2_mc1','s2_mc2','s2_mc3','s2_mc4'].forEach(id => {
+    const a = center('s2_kc'); const b = center(id);
+    line(a.r+5, a.midY, b.l, b.midY);
+  });
+  // ý nghĩa → leaf1
+  const yn2 = center('s2_yn');
+  line(yn2.r+5, yn2.midY, center('s2_yn1').l, center('s2_yn1').midY);
+  // ý nghĩa → điều kiện
+  const dk = center('s2_dk');
+  line(yn2.r+5, yn2.midY, dk.l, dk.midY);
+  // điều kiện → leaves
+  ['s2_dk1','s2_dk2'].forEach(id => {
+    const a = center('s2_dk'); const b = center(id);
+    line(a.r+5, a.midY, b.l, b.midY);
+  });
+
+  // Section 3 connections
+  const s3 = center('s3');
+  ['s3_sk','s3_nd','s3_kq','s3_yn','s3_lh'].forEach(id => {
+    const n = center(id);
+    line(s3.r, s3.midY, n.l, n.midY);
+  });
+  // sự kiện → hội nghị
+  const sk = center('s3_sk'); const dh = center('s3_dh');
+  line(sk.r+5, sk.midY, dh.l, dh.midY);
+  // hội nghị → leaves
+  ['s3_dh1','s3_dh2','s3_dh3'].forEach(id => {
+    const a = center('s3_dh'); const b = center(id);
+    line(a.r+5, a.midY, b.l, b.midY);
+  });
+  // nội dung → leaf
+  const nd = center('s3_nd');
+  line(nd.r+5, nd.midY, center('s3_nd1').l, center('s3_nd1').midY);
+  // kết quả → leaf
+  const kq3 = center('s3_kq');
+  line(kq3.r+5, kq3.midY, center('s3_kq1').l, center('s3_kq1').midY);
+  // ý nghĩa → leaves
+  const yn3 = center('s3_yn');
+  ['s3_yn1','s3_yn2'].forEach(id => {
+    const b = center(id);
+    line(yn3.r+5, yn3.midY, b.l, b.midY);
+  });
+  // liên hệ → leaf
+  const lh = center('s3_lh');
+  line(lh.r+5, lh.midY, center('s3_lh1').l, center('s3_lh1').midY);
+}
+
+// Recalc canvas height and draw
+function init() {
+  // set canvas height to fit content
+  const nodes = canvas.querySelectorAll('[id]');
+  let maxB = 0;
+  nodes.forEach(n => {
+    const r = n.getBoundingClientRect();
+    const cr = canvas.getBoundingClientRect();
+    const bottom = r.bottom - cr.top;
+    if (bottom > maxB) maxB = bottom;
+  });
+  canvas.style.minHeight = (maxB + 60) + 'px';
+  document.getElementById('lines').setAttribute('viewBox', `0 0 ${canvas.offsetWidth} ${canvas.offsetHeight}`);
+  drawLines();
+}
+
+window.addEventListener('load', init);
+window.addEventListener('resize', init);
+</script>
+</body>
+</html>
